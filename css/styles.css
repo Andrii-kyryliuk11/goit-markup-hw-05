@@ -644,11 +644,12 @@ a.project-link:focus {
 }
 
 .about p {
-  display: block;
+  display: flex;
   position: absolute;
+  align-items: center;
+  justify-content: center;
   left: 0;
   bottom: 0;
-  padding: 27px;
   color: #fff;
   font-weight: 700;
   font-size: 14px;
@@ -688,6 +689,9 @@ p.project-overlay {
 }
 
 a.project-link:hover .project-overlay {
+  transform: translateY(-100%);
+}
+a.project-link:focus .project-overlay {
   transform: translateY(-100%);
 }
 
