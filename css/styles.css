@@ -8,6 +8,7 @@
   --footer-adress: rgba(255, 255, 255, 0.6);
   --border-color: #ececec;
   --icon-color: #afb1b8;
+  --transition-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -69,8 +70,6 @@ a {
 .nav .link:hover,
 .nav .link:focus {
   color: var(--accent-color);
-  font-size: 14px;
-  line-height: 1.14;
 }
 
 .nav .link {
@@ -80,6 +79,7 @@ a {
   line-height: 1.14;
   font-weight: 500;
   letter-spacing: 0.02em;
+  transition: color 250ms var(--transition-function);
 }
 
 .adress {
@@ -89,6 +89,7 @@ a {
   line-height: 1.14;
   font-weight: 500;
   letter-spacing: 0.02em;
+  transition: color 250ms var(--transition-function);
 }
 .footer .adress {
   color: var(--footer-adress);
@@ -161,6 +162,8 @@ section[class="solutions"] {
   font-size: 16px;
   line-height: 1.87;
   letter-spacing: 0.06em;
+  transition: background-color 250ms var(--transition-function),
+    box-shadow 250ms var(--transition-function);
 }
 
 .solutions .button:hover,
@@ -227,10 +230,14 @@ h3,
 
 .button {
   background-color: var(--dark-background);
+  transition: background-color 250ms var(--transition-function),
+    color 250ms var(--transition-function),
+    box-shadow 250ms var(--transition-function);
 }
 
 .solutions .button {
   background-color: var(--accent-color);
+  color: #fff;
 }
 
 .button:focus,
@@ -243,6 +250,21 @@ h3,
 
 .nav .link.current {
   color: var(--accent-color);
+}
+
+ul[class="nav"] li {
+  position: relative;
+}
+
+.nav .link.current::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  background-color: var(--accent-color);
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
 }
 
 .filters button {
@@ -496,10 +518,12 @@ a.social-link {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 250ms var(--transition-function);
 }
 
 a.social-link svg {
   fill: var(--icon-color);
+  transition: fill 250ms var(--transition-function);
 }
 
 a.social-link:hover,
@@ -517,7 +541,7 @@ a.social-link:focus .social-icon {
 
 ul.client-links {
   display: flex;
-  justify-content: space-between;
+  gap: 30px;
 }
 
 ul.client-links a {
@@ -536,10 +560,12 @@ ul.client-links a {
 .company-link {
   border: 1px solid var(--icon-color);
   border-radius: 4px;
+  transition: border 250ms var(--transition-function);
 }
 
 .company-logo {
   fill: var(--icon-color);
+  transition: fill 250ms var(--transition-function);
 }
 
 .company-link:hover .company-logo {
@@ -568,7 +594,6 @@ ul.client-links a {
 .container.footer {
   display: flex;
   align-items: baseline;
-  gap: 70px;
 }
 
 div.footer-adress .logo {
@@ -578,6 +603,7 @@ div.footer-adress .logo {
 
 div.footer-adress {
   width: 231px;
+  margin-right: 70px;
 }
 
 ul.footer-links {
@@ -603,10 +629,116 @@ ul.footer-links svg {
 
 a.project-link {
   display: block;
+  transition: box-shadow 250ms var(--transition-function);
+  overflow: hidden;
 }
 
 a.project-link:hover,
 a.project-link:focus {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
+}
+
+.about-picture {
+  position: relative;
+}
+
+.about p {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 27px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  width: 100%;
+  height: 70px;
+  background: rgba(47, 48, 58, 0.8);
+}
+
+.thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+p.project-overlay {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.56;
+  letter-spacing: 0.03em;
+  color: #fff;
+}
+
+.project-overlay {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 63px 24px;
+  text-align: left;
+  background: rgba(33, 150, 243, 0.9);
+  left: 0;
+  top: 100%;
+  transition: transform 250ms var(--transition-function);
+}
+
+a.project-link:hover .project-overlay {
+  transform: translateY(-100%);
+}
+
+.backdrop {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  scale: 1;
+  visibility: visible;
+  transition: opacity 250ms var(--transition-function),
+    scale 250ms var(--transition-function);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  scale: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal {
+  position: relative;
+  display: block;
+  margin: auto;
+  width: 528px;
+  height: 581px;
+  background-color: #fff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.modal-button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.modal p {
+  display: block;
+  padding: 50px;
 }
